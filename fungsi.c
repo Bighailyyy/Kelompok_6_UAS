@@ -406,4 +406,33 @@ void menuAdmin() {
         }
     } while (pilihan != 6);
 }
+void menuUser() {
+    int pilihan;
+    do {
+        printf("\n=== USER MENU ===\n");
+        printf("1. Lihat Buku\n");
+        printf("2. Cari Buku\n");
+        printf("3. Ajukan Peminjaman\n");
+        printf("4. Lihat Peminjaman Saya\n");
+        printf("5. Lihat Rekomendasi\n");
+        printf("6. Kembalikan Buku\n");
+        printf("7. Keluar dari program\n");
+        printf("Pilih: ");
+        if (scanf("%d", &pilihan) != 1) {
+            printf("Input tidak valid. Masukkan angka.\n");
+            while (getchar() != '\n');
+            continue;
+        }
 
+        switch (pilihan) {
+            case 1: tampilkanBuku(); break;
+            case 2: cariBuku(); break;
+            case 3: ajukanPeminjaman(); break;
+            case 4: lihatPeminjamanSaya(); break;
+            case 5: lihatRekomendasi(); break;
+            case 6: kembalikanBuku(); break;
+            case 7: printf("Terimakasih sudah menggunakan LibraryKu!\n"); exit(0);
+            default: printf("Pilihan tidak valid.\n");
+        }
+    } while (pilihan != 7);
+}
