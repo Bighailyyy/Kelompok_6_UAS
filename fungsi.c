@@ -312,5 +312,28 @@ void registerAdmin() {
     fclose(f);
     printf("Register admin berhasil.\n");
 }
+void registerUser() {
+    FILE* f = fopen("user.txt", "a");
+    if (!f) {
+        printf("Gagal membuka file user.\n");
+        return;
+    }
 
+    char username[100], password[100];
+    getchar();
+    printf("Masukkan username user: "); fgets(username, sizeof(username), stdin);
+    printf("Masukkan password user: "); fgets(password, sizeof(password), stdin);
+    username[strcspn(username, "\n")] = 0;
+    password[strcspn(password, "\n")] = 0;
+
+    if (usernameSudahAda("user.txt", username) || usernameSudahAda("admin.txt", username)) {
+        printf("Username sudah digunakan.\n");
+        fclose(f);
+        return;
+    }
+
+    fprintf(f, "%s;%s\n", username, password);
+    fclose(f);
+    printf("Register user berhasil.\n");
+}
 
