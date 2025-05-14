@@ -336,4 +336,27 @@ void registerUser() {
     fclose(f);
     printf("Register user berhasil.\n");
 }
+int loginCocok(const char* file, char* username, char* password) {
+    FILE* f = fopen(file, "r");
+    if (!f) return 0;
+    char user[100], pass[100];
+    while (fscanf(f, "%[^;];%[^\n]\n", user, pass) != EOF) {
+        if (strcmp(user, username) == 0 && strcmp(pass, password) == 0) {
+            fclose(f);
+            return 1;
+        }
+    }
+    fclose(f);
+    return 0;
+}
 
+int loginAdmin() {
+    char username[100], password[100];
+    getchar();
+    printf("Masukkan username admin: "); fgets(username, sizeof(username), stdin);
+    printf("Masukkan password admin: "); fgets(password, sizeof(password), stdin);
+    username[strcspn(username, "\n")] = 0;
+    password[strcspn(password, "\n")] = 0;
+    if (loginCocok("admin.txt", username, password)) return 1;
+    return 0;
+}
