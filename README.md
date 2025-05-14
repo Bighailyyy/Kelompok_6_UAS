@@ -1,4 +1,4 @@
-# Kelompok_6_UAS <br>
+# **Kelompok_6_UAS** <br>
 Kelompok 6 <br>
 Putroe Fatimah Az-Zahra 2408107010002 <br>
 Dedek Saleha 2408107010023 <br>
@@ -8,7 +8,7 @@ Habib Nuran Mulkan 2408107010109 <br>
 LibraryKu - Mini Perpustakaan Console Based
 LibraryKu adalah sebuah program perpustakaan berbasis terminal (console-based) yang ditulis dalam bahasa C. Program ini menyediakan fitur manajemen buku dan peminjaman buku dengan dua peran pengguna utama: Admin dan User. Program menggunakan penyimpanan file .txt untuk menyimpan data secara permanen.
 
-Fitur Utama
+**Fitur Utama**
 1. Register & Login
    Admin dan User dapat mendaftar (register) terlebih dahulu.
    Sistem akan menolak username yang sudah terpakai.
