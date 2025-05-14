@@ -360,3 +360,50 @@ int loginAdmin() {
     if (loginCocok("admin.txt", username, password)) return 1;
     return 0;
 }
+int loginUser() {
+    char username[100], password[100];
+    getchar();
+    printf("Masukkan username user: "); fgets(username, sizeof(username), stdin);
+    printf("Masukkan password user: "); fgets(password, sizeof(password), stdin);
+    username[strcspn(username, "\n")] = 0;
+    password[strcspn(password, "\n")] = 0;
+    if (loginCocok("user.txt", username, password)) return 1;
+    return 0;
+}
+
+void menuAdmin() {
+    int pilihan;
+    char newline;
+    do {
+        printf("\n=== ADMIN MENU ===\n");
+        printf("1. Tambah Buku\n");
+        printf("2. Tampilkan Buku\n");
+        printf("3. Edit Buku\n");
+        printf("4. Proses Antrian\n");
+        printf("5. Hapus Buku dari Katalog\n");
+        printf("6. Kembali ke Menu Login\n");
+        printf("7. Keluar dari Program\n");
+
+        printf("Pilih: ");
+        if (scanf("%d%c", &pilihan, &newline) != 2 || newline != '\n') {
+            printf("Input tidak valid! Harus berupa angka.\n");
+            while (getchar() != '\n');
+            pilihan = -1;
+            continue;
+        }
+
+        switch (pilihan) {
+            case 1: tambahBuku(); break;
+            case 2: tampilkanBuku(); break;
+            case 3: editBuku(); break;
+            case 4: prosesAntrian(); break;
+            case 5: hapusBuku(); break;
+            case 6: printf("Kembali ke menu login...\n"); break;
+            case 7:
+                printf("Terimakasih sudah menggunakan LibraryKu!\n");
+                exit(0);
+            default: printf("Pilihan tidak valid.\n");
+        }
+    } while (pilihan != 6);
+}
+
