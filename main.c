@@ -21,4 +21,4 @@ int main() {
             case 2: registerUser(); break;
             case 3:
                 if (loginAdmin()) menuAdmin();
-                
+                else printf("Login admin gagal. Coba lagi.\n");
