@@ -235,3 +235,42 @@ void lihatRekomendasi() {
     tampilkanBuku();
 }
 
+void kembalikanBuku() {
+    if (!daftarPeminjaman) {
+        printf("Tidak ada buku yang sedang dipinjam.\n");
+        return;
+    }
+
+    int id;
+    printf("Masukkan ID buku yang ingin dikembalikan: ");
+    scanf("%d", &id);
+
+    NodePeminjaman *prev = NULL, *curr = daftarPeminjaman;
+    while (curr != NULL) {
+        if (curr->idBuku == id) {
+            for (int i = 0; i < jumlahBuku; i++) {
+                if (daftarBuku[i].id == id) {
+                    daftarBuku[i].stok++;
+                    simpanBukuKeFile();
+                    printf("Buku '%s' berhasil dikembalikan.\n", daftarBuku[i].judul);
+                    break;
+                }
+            }
+
+            // Hapus node dari daftarPeminjaman
+            if (prev == NULL) {
+                daftarPeminjaman = curr->next;
+            } else {
+                prev->next = curr->next;
+            }
+            free(curr);
+            return;
+        }
+
+        prev = curr;
+        curr = curr->next;
+    }
+
+    printf("ID buku tidak ditemukan dalam daftar peminjaman Anda.\n");
+}
+
