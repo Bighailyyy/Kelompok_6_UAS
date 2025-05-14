@@ -288,3 +288,29 @@ int usernameSudahAda(const char* file, const char* username) {
     return 0;
 }
 
+void registerAdmin() {
+    FILE* f = fopen("admin.txt", "a");
+    if (!f) {
+        printf("Gagal membuka file admin.\n");
+        return;
+    }
+
+    char username[100], password[100];
+    getchar();
+    printf("Masukkan username admin: "); fgets(username, sizeof(username), stdin);
+    printf("Masukkan password admin: "); fgets(password, sizeof(password), stdin);
+    username[strcspn(username, "\n")] = 0;
+    password[strcspn(password, "\n")] = 0;
+
+    if (usernameSudahAda("admin.txt", username) || usernameSudahAda("user.txt", username)) {
+        printf("Username sudah digunakan.\n");
+        fclose(f);
+        return;
+    }
+
+    fprintf(f, "%s;%s\n", username, password);
+    fclose(f);
+    printf("Register admin berhasil.\n");
+}
+
+
