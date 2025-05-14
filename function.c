@@ -34,3 +34,29 @@ int dequeue() {
     return data;
 }
 
+void simpanBukuKeFile() {
+    FILE* file = fopen("buku.txt", "w");
+    for (int i = 0; i < jumlahBuku; i++) {
+        fprintf(file, "%d;%s;%s;%s;%d\n", daftarBuku[i].id, daftarBuku[i].judul, daftarBuku[i].penulis, daftarBuku[i].genre, daftarBuku[i].stok);
+    }
+    fclose(file);
+}
+
+void muatBukuDariFile() {
+    FILE* file = fopen("buku.txt", "r");
+    if (!file) return;
+
+    while (fscanf(file, "%d;%[^;];%[^;];%[^;];%d\n", &daftarBuku[jumlahBuku].id, daftarBuku[jumlahBuku].judul,
+                  daftarBuku[jumlahBuku].penulis, daftarBuku[jumlahBuku].genre, &daftarBuku[jumlahBuku].stok) != EOF) {
+        jumlahBuku++;
+    }
+    fclose(file);
+}
+
+int idBukuSudahAda(int id) {
+    for (int i = 0; i < jumlahBuku; i++) {
+        if (daftarBuku[i].id == id) return 1;
+    }
+    return 0;
+}
+
