@@ -38,9 +38,9 @@ Fitur Utama<br>
    buku.txt – Menyimpan data buku secara permanen.<br>
 
 6. Cara Menjalankan<br>
-1. Kompilasi program:<br>
-   gcc main.c fungsi.c -o libraryku<br>
-2. Jalankan program:<br>
+    Kompilasi program:<br>
+    gcc main.c fungsi.c -o libraryku<br>
+    Jalankan program:<br>
    ./libraryku<br>
 
 
