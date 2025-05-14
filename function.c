@@ -120,4 +120,118 @@ void editBuku() {
     if (!found) printf("Buku tidak ditemukan.\n");
 }
 
+void hapusBuku() {
+    int id, found = 0;
+    printf("Masukkan ID buku yang ingin dihapus: ");
+    scanf("%d", &id);
+
+    for (int i = 0; i < jumlahBuku; i++) {
+        if (daftarBuku[i].id == id) {
+            for (int j = i; j < jumlahBuku - 1; j++) {
+                daftarBuku[j] = daftarBuku[j + 1];
+            }
+            jumlahBuku--;
+            simpanBukuKeFile();
+            printf("Buku berhasil dihapus dari katalog.\n");
+            found = 1;
+            break;
+        }
+    }
+    if (!found) {
+        printf("Buku dengan ID %d tidak ditemukan.\n", id);
+    }
+}
+
+void prosesAntrian() {
+    int id = dequeue();
+    if (id == -1) {
+        printf("Tidak ada antrian.\n");
+        return;
+    }
+    for (int i = 0; i < jumlahBuku; i++) {
+        if (daftarBuku[i].id == id && daftarBuku[i].stok > 0) {
+            daftarBuku[i].stok--;
+            simpanBukuKeFile();
+            printf("Peminjaman buku '%s' diproses.\n", daftarBuku[i].judul);
+            return;
+        }
+    }
+    printf("Buku tidak ditemukan atau stok habis.\n");
+}
+
+void cariBuku() {
+    char keyword[100];
+    while (getchar() != '\n'); 
+    printf("Masukkan judul buku: "); 
+    fgets(keyword, 100, stdin);
+    keyword[strcspn(keyword, "\n")] = 0;
+
+    int ditemukan = 0;
+    for (int i = 0; i < jumlahBuku; i++) {
+        if (strstr(daftarBuku[i].judul, keyword)) {
+            printf("[%d] %s oleh %s | Genre: %s | Stok: %d\n",
+                   daftarBuku[i].id, daftarBuku[i].judul, daftarBuku[i].penulis,
+                   daftarBuku[i].genre, daftarBuku[i].stok);
+            ditemukan = 1;
+        }
+    }
+    if (!ditemukan) {
+        printf("Buku dengan judul '%s' tidak ditemukan.\n", keyword);
+    }
+}
+
+void ajukanPeminjaman() {
+    if (jumlahBuku == 0) {
+        printf("Belum ada buku dalam katalog. Tidak bisa meminjam.\n");
+        return;
+    }
+
+    int id;
+    printf("Masukkan ID buku yang ingin dipinjam: ");
+    scanf("%d", &id);
+}
+
+void lihatPeminjamanSaya() {
+    NodePeminjaman* temp = daftarPeminjaman;
+    int ada = 0;
+
+    if (!temp) {
+        printf("Belum ada buku yang dipinjam.\n");
+        return;
+    }
+
+    while (temp) {
+        for (int i = 0; i < jumlahBuku; i++) {
+            if (daftarBuku[i].id == temp->idBuku) {
+                printf("%s\n", daftarBuku[i].judul);
+                ada = 1;
+                break;
+            }
+        }
+        temp = temp->next;
+    }
+
+    if (!ada) {
+        printf("Belum ada buku yang dipinjam atau semua buku sudah dihapus dari katalog.\n");
+    }
+}
+
+void lihatRekomendasi() {
+    if (jumlahBuku == 0) {
+        printf("Belum ada buku yang direkomendasikan.\n");
+        return;
+    }
+
+    for (int i = 0; i < jumlahBuku - 1; i++) {
+        for (int j = i + 1; j < jumlahBuku; j++) {
+            if (daftarBuku[j].stok > daftarBuku[i].stok) {
+                Buku temp = daftarBuku[i];
+                daftarBuku[i] = daftarBuku[j];
+                daftarBuku[j] = temp;
+            }
+        }
+    }
+    printf("Rekomendasi buku berdasarkan stok tertinggi:\n");
+    tampilkanBuku();
+}
 
