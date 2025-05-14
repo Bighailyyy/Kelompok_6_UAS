@@ -274,3 +274,17 @@ void kembalikanBuku() {
     printf("ID buku tidak ditemukan dalam daftar peminjaman Anda.\n");
 }
 
+int usernameSudahAda(const char* file, const char* username) {
+    FILE* f = fopen(file, "r");
+    if (!f) return 0;
+    char user[100], pass[100];
+    while (fscanf(f, "%[^;];%[^\n]\n", user, pass) != EOF) {
+        if (strcmp(user, username) == 0) {
+            fclose(f);
+            return 1;
+        }
+    }
+    fclose(f);
+    return 0;
+}
+
